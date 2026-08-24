@@ -18,6 +18,6 @@ The structure is intentionally small:
 - **Progress** is what happened when an idea met research, a test, or a build.
 - **Insights** are the connections that changed what someone could do next.
 
-I want to keep the uncertainty, wrong turns, and changed mind visible without turning private life into material. Each entry can end where a real investigation ends: with what I think now, and the next question that opened.
+Each entry is a snapshot of where the idea is now: what I tried, what changed, and the next question worth following.
 
 The first version only needs to make those traces easy to publish and easy to find again. Everything else can earn its place later.
