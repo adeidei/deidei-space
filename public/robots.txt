@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://deidei.space/sitemap-index.xml

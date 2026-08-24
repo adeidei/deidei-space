@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">deidei.space</title>
+  <desc id="description">Builder and thinking partner.</desc>
+  <rect width="1200" height="630" fill="#f5f0e7"/>
+  <path d="M92 0v630" stroke="#f05a28" stroke-width="2" opacity=".55"/>
+  <g stroke="#276782" stroke-width="1" opacity=".15">
+    <path d="M0 120h1200M0 160h1200M0 200h1200M0 240h1200M0 280h1200M0 320h1200M0 360h1200M0 400h1200M0 440h1200M0 480h1200M0 520h1200"/>
+  </g>
+  <circle cx="1040" cy="105" r="47" fill="#f05a28"/>
+  <text x="1040" y="120" text-anchor="middle" font-family="Georgia, serif" font-size="44" fill="#f5f0e7">✳</text>
+  <text x="150" y="145" font-family="monospace" font-size="22" font-weight="700" letter-spacing="1" fill="#17201e">DEIDEI.SPACE / PUBLIC NOTEBOOK</text>
+  <text x="145" y="325" font-family="Georgia, serif" font-size="86" letter-spacing="-4" fill="#17201e">Let’s see what this</text>
+  <text x="145" y="420" font-family="Georgia, serif" font-size="86" letter-spacing="-4" fill="#17201e">could become.</text>
+  <path d="M150 454c210-18 449-16 708-6" stroke="#f05a28" stroke-width="18" fill="none"/>
+  <text x="150" y="550" font-family="monospace" font-size="18" letter-spacing="2" fill="#68706b">BUILDER  ·  THINKING PARTNER  ·  DEIDEI</text>
+</svg>

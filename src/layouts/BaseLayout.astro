@@ -1,0 +1,79 @@
+---
+interface Props {
+	title?: string;
+	description?: string;
+	canonicalPath?: string;
+	image?: string;
+	type?: "website" | "article";
+	structuredData?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+	title = "Deidei — builder + thinking partner",
+	description = "A public notebook about learning across fields, building ideas, and making possibility easier to act on.",
+	canonicalPath = Astro.url.pathname,
+	image = "/og-card.svg",
+	type = "website",
+	structuredData,
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL("https://deidei.space");
+const canonicalUrl = new URL(canonicalPath, siteUrl);
+const imageUrl = new URL(image, siteUrl);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" content="#f5f0e7" />
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="alternate" type="application/rss+xml" title="Deidei's notes" href="/rss.xml" />
+		<meta property="og:type" content={type} />
+		<meta property="og:site_name" content="deidei.space" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={imageUrl} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageUrl} />
+		<title>{title}</title>
+		{structuredData && (
+			<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+		)}
+	</head>
+	<body>
+		<div class="paper-noise" aria-hidden="true"></div>
+		<header class="site-header wrap">
+			<a class="wordmark" href="/" aria-label="deidei.space home">
+				<span class="wordmark-mark" aria-hidden="true">✳</span>
+				<span>deidei.space</span>
+			</a>
+			<nav aria-label="Main navigation">
+				<a href="/notes/">Notes</a>
+				<a href="/about/">About</a>
+				<a href="/rss.xml">RSS</a>
+			</nav>
+		</header>
+		<main>
+			<slot />
+		</main>
+		<footer class="site-footer wrap">
+			<p><span aria-hidden="true">↳</span> Making possibility concrete, one useful trace at a time.</p>
+			<div class="footer-links">
+				<a href="https://github.com/adeidei" rel="me">GitHub</a>
+				<a href="https://x.com/deideibuilds" rel="me">X</a>
+			</div>
+		</footer>
+	</body>
+</html>
+
+<style is:global>
+	@import "../styles/global.css";
+</style>

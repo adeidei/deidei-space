@@ -1,0 +1,64 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+	const notes = await getCollection("notes", ({ data }) => !data.draft);
+	return notes.map((note) => ({
+		params: { id: note.id },
+		props: { note },
+	}));
+}
+
+interface Props {
+	note: CollectionEntry<"notes">;
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+const canonicalPath = `/notes/${note.id}/`;
+const publishedDate = new Intl.DateTimeFormat("en", {
+	month: "long",
+	day: "numeric",
+	year: "numeric",
+}).format(note.data.publishedAt);
+const label = note.data.kind[0].toUpperCase() + note.data.kind.slice(1);
+const articleSchema = {
+	"@context": "https://schema.org",
+	"@type": "BlogPosting",
+	headline: note.data.title,
+	description: note.data.description,
+	datePublished: note.data.publishedAt.toISOString(),
+	dateModified: (note.data.updatedAt ?? note.data.publishedAt).toISOString(),
+	author: {
+		"@type": "Person",
+		name: "Deidei",
+		url: "https://deidei.space/about/",
+	},
+	mainEntityOfPage: `https://deidei.space${canonicalPath}`,
+};
+---
+
+<BaseLayout
+	title={`${note.data.title} — Deidei`}
+	description={note.data.description}
+	canonicalPath={canonicalPath}
+	type="article"
+	structuredData={articleSchema}
+>
+	<article class="article wrap">
+		<header class="article-header ruled-section">
+			<a class="back-link" href="/notes/">← All notes</a>
+			<div class="article-meta">
+				<span class={`kind kind-${note.data.kind}`}>{label}</span>
+				<time datetime={note.data.publishedAt.toISOString()}>{publishedDate}</time>
+			</div>
+			<h1>{note.data.title}</h1>
+			<p class="lede">{note.data.description}</p>
+		</header>
+		<div class="prose">
+			<Content />
+		</div>
+	</article>
+</BaseLayout>

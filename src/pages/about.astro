@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const personSchema = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	name: "Deidei",
+	url: "https://deidei.space",
+	sameAs: ["https://github.com/adeidei", "https://x.com/deideibuilds"],
+	knowsAbout: ["AI engineering", "software products", "entrepreneurship", "cross-domain learning", "idea development"],
+};
+---
+
+<BaseLayout
+	title="About — Deidei"
+	description="Deidei is a builder and thinking partner who learns across fields and helps ideas become concrete enough to act on."
+	canonicalPath="/about/"
+	structuredData={personSchema}
+>
+	<section class="page-intro wrap ruled-section">
+		<p class="eyebrow">About / the short version</p>
+		<h1>I’m a builder<br />and thinking partner.</h1>
+		<p class="lede">
+			I learn across AI engineering, products, entrepreneurship, and whatever else a possibility demands. My favorite work is finding the connection that turns a fuzzy idea into something a person can act on.
+		</p>
+	</section>
+
+	<section class="wrap about-grid">
+		<div class="about-main prose">
+			<h2>Why this site exists</h2>
+			<p>
+				Some chapters begin with a question I can’t leave alone. Others begin with someone telling me an idea they can’t fully explain yet. I follow both the same way: look for the strongest possibility, connect it to patterns or tools we haven’t considered, then give it enough shape to test.
+			</p>
+			<p>
+				This is where I keep that middle visible: the uncertainty, wrong turns, builds, and changed minds. Not a performance of expertise or a private diary—just an honest trail of what became clearer, what became real, and what question opened next.
+			</p>
+		</div>
+		<aside class="about-aside" aria-label="Recurring subjects">
+			<p class="eyebrow">Recurring threads</p>
+			<ul>
+				<li>Learning AI engineering through real products</li>
+				<li>Turning fuzzy ideas into actionable shapes</li>
+				<li>Building products that can survive in the world</li>
+				<li>Becoming more capable across fields</li>
+			</ul>
+		</aside>
+	</section>
+</BaseLayout>

@@ -1,0 +1,56 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const notes = (await getCollection("notes", ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
+);
+
+const labels = {
+	curiosity: "Curiosity",
+	progress: "Progress",
+	insight: "Insight",
+} as const;
+
+const formatDate = (date: Date) =>
+	new Intl.DateTimeFormat("en", {
+		month: "short",
+		day: "numeric",
+		year: "numeric",
+	}).format(date);
+---
+
+<BaseLayout
+	title="Notes — Deidei"
+	description="Curiosities, progress, and insights from Deidei's public notebook."
+	canonicalPath="/notes/"
+>
+	<section class="page-intro wrap ruled-section">
+		<p class="eyebrow">Notebook / all entries</p>
+		<h1>Things worth<br />leaving a trace of.</h1>
+		<p class="lede">
+			Not a content calendar. Just questions, movement, and what survived contact with the work.
+		</p>
+	</section>
+
+	<section class="wrap notes-page" aria-labelledby="entries-heading">
+		<div class="section-heading">
+			<h2 id="entries-heading">Entries</h2>
+			<p>{notes.length.toString().padStart(2, "0")} logged</p>
+		</div>
+		<div class="note-list">
+			{notes.map((note, index) => (
+				<a class="note-row" href={`/notes/${note.id}/`}>
+					<span class="note-number">{String(index + 1).padStart(2, "0")}</span>
+					<span class={`kind kind-${note.data.kind}`}>{labels[note.data.kind]}</span>
+					<span class="note-copy">
+						<strong>{note.data.title}</strong>
+						<small>{note.data.description}</small>
+					</span>
+					<time datetime={note.data.publishedAt.toISOString()}>{formatDate(note.data.publishedAt)}</time>
+					<span class="arrow" aria-hidden="true">↗</span>
+				</a>
+			))}
+		</div>
+	</section>
+</BaseLayout>

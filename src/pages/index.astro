@@ -1,0 +1,134 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const notes = (await getCollection("notes", ({ data }) => !data.draft))
+	.sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+	.slice(0, 4);
+
+const labels = {
+	curiosity: "Curiosity",
+	progress: "Progress",
+	insight: "Insight",
+} as const;
+
+const formatDate = (date: Date) =>
+	new Intl.DateTimeFormat("en", {
+		month: "short",
+		day: "numeric",
+		year: "numeric",
+	}).format(date);
+
+const websiteSchema = [
+	{
+		"@context": "https://schema.org",
+		"@type": "WebSite",
+		name: "deidei.space",
+		url: "https://deidei.space",
+		description: "A public notebook by a builder and thinking partner who learns across fields and helps ideas take shape.",
+	},
+	{
+		"@context": "https://schema.org",
+		"@type": "Person",
+		name: "Deidei",
+		url: "https://deidei.space/about/",
+		sameAs: ["https://github.com/adeidei", "https://x.com/deideibuilds"],
+	},
+];
+---
+
+<BaseLayout structuredData={websiteSchema}>
+	<section class="hero wrap">
+		<div class="hero-copy">
+			<p class="eyebrow">Builder + thinking partner / by Deidei</p>
+			<h1>Let’s see what<br />this could<br /><em>become.</em></h1>
+			<p class="hero-intro">
+				I learn whatever an idea asks of me—AI engineering, product, business, or something entirely new—then connect what I find so it can take shape. Sometimes the idea is mine. Sometimes I’m thinking alongside someone else.
+			</p>
+		</div>
+		<aside class="now-note" aria-label="What I am working on now">
+			<p class="stamp">On my desk / 25 Aug 2026</p>
+			<strong>Finding the shape of this site.</strong>
+			<p>Making room for the ideas I pursue and the ones I help other people move.</p>
+			<small>Status: story taking shape</small>
+		</aside>
+	</section>
+
+	<section class="section-rule" aria-label="Three kinds of notes">
+		<div class="kinds wrap">
+			<article class="kind-card">
+				<span class="index">01 / follow</span>
+				<h2>Curiosities</h2>
+				<p>Questions and fuzzy ideas that keep tugging—mine or someone else’s.</p>
+				<span class="mark" aria-hidden="true">?</span>
+			</article>
+			<article class="kind-card">
+				<span class="index">02 / move</span>
+				<h2>Progress</h2>
+				<p>The experiments, prototypes, and decisions that moved an idea closer to reality.</p>
+				<span class="mark" aria-hidden="true">↗</span>
+			</article>
+			<article class="kind-card">
+				<span class="index">03 / keep</span>
+				<h2>Insights</h2>
+				<p>The connection that made a different next move visible.</p>
+				<span class="mark" aria-hidden="true">✳</span>
+			</article>
+		</div>
+	</section>
+
+	<section class="work-section wrap" aria-labelledby="apps-heading">
+		<div class="section-heading">
+			<h2 id="apps-heading">Apps</h2>
+			<p>Built + current status</p>
+		</div>
+		<div class="app-grid" aria-label="Apps by Deidei">
+			<a class="project-link" href="https://vialtracker.health">
+				<div>
+					<p class="project-status"><span class="pulse" aria-hidden="true"></span> In progress</p>
+					<h3>Vial</h3>
+					<p>A private iOS tracker for peptide and GLP-1 routines, with logs, reminders, supply, and exportable history.</p>
+				</div>
+				<span>Visit project ↗</span>
+			</a>
+			<a class="project-link" href="https://www.vidbrief.app">
+				<div>
+					<p class="project-status">Paused</p>
+					<h3>VidBrief</h3>
+					<p>Turns a public TikTok into a hook breakdown, scene map, and creator-ready brief.</p>
+				</div>
+				<span>Visit project ↗</span>
+			</a>
+			<a class="project-link" href="https://www.notabill.app">
+				<div>
+					<p class="project-status">Paused</p>
+					<h3>Not A Bill</h3>
+					<p>A local-first guide for making confusing EOB, bill, and claim paperwork easier to understand.</p>
+				</div>
+				<span>Visit project ↗</span>
+			</a>
+		</div>
+	</section>
+
+	<section class="notes-section wrap" aria-labelledby="notes-heading">
+		<div class="section-heading">
+			<h2 id="notes-heading">Latest traces</h2>
+			<p>Newest first</p>
+		</div>
+		<div class="note-list">
+			{notes.map((note, index) => (
+				<a class="note-row" href={`/notes/${note.id}/`}>
+					<span class="note-number">{String(index + 1).padStart(2, "0")}</span>
+					<span class={`kind kind-${note.data.kind}`}>{labels[note.data.kind]}</span>
+					<span class="note-copy">
+						<strong>{note.data.title}</strong>
+						<small>{note.data.description}</small>
+					</span>
+					<time datetime={note.data.publishedAt.toISOString()}>{formatDate(note.data.publishedAt)}</time>
+					<span class="arrow" aria-hidden="true">↗</span>
+				</a>
+			))}
+		</div>
+		<a class="all-notes" href="/notes/">Open the whole notebook →</a>
+	</section>
+</BaseLayout>
