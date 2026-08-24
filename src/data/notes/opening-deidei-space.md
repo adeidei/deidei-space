@@ -10,7 +10,7 @@ I kept trying to choose one subject for this site. AI engineering? Products? Ent
 
 The thread is what I do with possibility. I learn whatever an idea demands, connect it to patterns or tools that might change its shape, then try to make it concrete enough to act on. Sometimes the idea is mine. Sometimes I am thinking alongside someone else.
 
-So this is not a portfolio waiting for a final form. It is a working trail of that process.
+This site is where I document that process.
 
 The structure is intentionally small:
 
@@ -20,4 +20,4 @@ The structure is intentionally small:
 
 Each entry is a snapshot of where the idea is now: what I tried, what changed, and the next question worth following.
 
-The first version only needs to make those traces easy to publish and easy to find again. Everything else can earn its place later.
+The first version only needs to make these notes easy to publish and easy to find again. I can add more when I need it.

@@ -22,21 +22,21 @@ const formatDate = (date: Date) =>
 
 <BaseLayout
 	title="Notes — Deidei"
-	description="Curiosities, progress, and insights from Deidei's public notebook."
+	description="Notes on what Deidei is learning, building, and thinking through."
 	canonicalPath="/notes/"
 >
 	<section class="page-intro wrap ruled-section">
-		<p class="eyebrow">Notebook / all entries</p>
-		<h1>Things worth<br />leaving a trace of.</h1>
+		<p class="eyebrow">Notes</p>
+		<h1>What I’m learning<br />and building.</h1>
 		<p class="lede">
-			Not a content calendar. Just questions, movement, and what survived contact with the work.
+			Questions I’m exploring, things I’m working on, and ideas I want to remember.
 		</p>
 	</section>
 
 	<section class="wrap notes-page" aria-labelledby="entries-heading">
 		<div class="section-heading">
-			<h2 id="entries-heading">Entries</h2>
-			<p>{notes.length.toString().padStart(2, "0")} logged</p>
+			<h2 id="entries-heading">All notes</h2>
+			<p>{notes.length.toString().padStart(2, "0")} published</p>
 		</div>
 		<div class="note-list">
 			{notes.map((note, index) => (
